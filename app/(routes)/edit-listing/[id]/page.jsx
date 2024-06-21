@@ -139,7 +139,7 @@ function EditListing({ params }) {
 
     return (
         <div className='px-10 md:px-36 my-10'>
-            <h2 className='font-bold text-2xl'>Enter some more details about your listing</h2>
+            <h2 className='font-bold text-2xl'>Saisissez quelques détails supplémentaires concernant votre annonce</h2>
 
             <Formik
                 initialValues={{
@@ -164,23 +164,23 @@ function EditListing({ params }) {
                                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
                                     <div className='flex gap-2 flex-col'>
 
-                                        <h2 className='text-gray-500'>Do you want to Rent it Sell it?</h2>
+                                        <h2 className='text-gray-500'>Vous voulez le Louer ou le Vendre ?</h2>
                                         <RadioGroup defaultValue={listing?.type}
                                             onValueChange={(v) => values.type = v}
                                         >
                                             <div className="flex items-center space-x-2">
                                                 <RadioGroupItem value="Sell" id="Sell" />
-                                                <Label htmlFor="Sell" className="text-lg">Sell</Label>
+                                                <Label htmlFor="Sell" className="text-lg">Vendre</Label>
                                             </div>
                                             <div className="flex items-center space-x-2">
                                                 <RadioGroupItem value="Rent" id="Rent" />
-                                                <Label htmlFor="Rent" className="text-lg">Rent</Label>
+                                                <Label htmlFor="Rent" className="text-lg">Louer</Label>
                                             </div>
                                         </RadioGroup>
 
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>Property Type</h2>
+                                        <h2 className='text-gray-500'>Type de propriété</h2>
                                         <Select
                                             onValueChange={(e) => values.propertyType = e}
                                             name="propertyType"
@@ -190,8 +190,8 @@ function EditListing({ params }) {
                                                 <SelectValue placeholder={listing?.propertyType ? listing?.propertyType : "Select Property Type"} />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="Single Family House">Single Family House</SelectItem>
-                                                <SelectItem value="Town House">Town House</SelectItem>
+                                                <SelectItem value="Single Family House">Maison individuelle</SelectItem>
+                                                <SelectItem value="Town House">Maison de ville</SelectItem>
                                                 <SelectItem value="Condo">Condo</SelectItem>
                                             </SelectContent>
                                         </Select>
@@ -199,7 +199,7 @@ function EditListing({ params }) {
                                 </div>
                                 <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>Bedroom</h2>
+                                        <h2 className='text-gray-500'>Chambre à coucher</h2>
                                         <Input type="number" placeholder="Ex.2"
                                             defaultValue={listing?.bedroom}
                                             name="bedroom"
@@ -207,13 +207,13 @@ function EditListing({ params }) {
                                         />
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'   >Bathroom</h2>
+                                        <h2 className='text-gray-500'   >Salle de bains</h2>
                                         <Input type="number" placeholder="Ex.2" name="bathroom"
                                             onChange={handleChange}
                                             defaultValue={listing?.bathroom} />
                                     </div>
                                     <div className='flex gap-2 flex-col'   >
-                                        <h2 className='text-gray-500'>Built In</h2>
+                                        <h2 className='text-gray-500'>Intégré</h2>
                                         <Input type="number" placeholder="Ex.1900 Sq.ft"
                                             onChange={handleChange}
                                             defaultValue={listing?.builtIn} name="builtIn" />
@@ -229,13 +229,13 @@ function EditListing({ params }) {
                                         />
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>Lot Size (Sq.Ft)</h2>
+                                        <h2 className='text-gray-500'>Taille du terrain (m²)</h2>
                                         <Input type="number" placeholder="" name="lotSize"
                                             onChange={handleChange}
                                             defaultValue={listing?.lotSize} />
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>Area (Sq.Ft)</h2>
+                                        <h2 className='text-gray-500'>Surface (m²)</h2>
                                         <Input type="number" placeholder="Ex.1900" name="area"
                                             onChange={handleChange}
                                             defaultValue={listing?.area} />
@@ -244,13 +244,13 @@ function EditListing({ params }) {
                                 </div>
                                 <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>Selling Price ($)</h2>
+                                        <h2 className='text-gray-500'>Prix d'achat (XOF)</h2>
                                         <Input type="number" placeholder="400000" name="price"
                                             onChange={handleChange}
                                             defaultValue={listing?.price} />
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>HOA (Per Month) ($)</h2>
+                                        <h2 className='text-gray-500'>Montant (XOF/mois)</h2>
                                         <Input type="number"
                                             defaultValue={listing?.hoa} placeholder="100" onChange={handleChange}
                                             name="hoa" />
@@ -267,7 +267,7 @@ function EditListing({ params }) {
                                     </div>
                                 </div>
                                 <div>
-                                    <h2 className='font-lg text-gray-500 my-2'>Upload Property Images</h2>
+                                    <h2 className='font-lg text-gray-500 my-2'>Télécharger des images de la propriété</h2>
                                     <FileUpload
                                         setImages={(value) => setImages(value)}
                                         imageList={listing.listingImages}

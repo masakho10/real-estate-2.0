@@ -57,7 +57,7 @@ function UserListing() {
     }
   return (
     <div>
-        <h2 className='font-bold text-2xl'>Manage your listing</h2>
+        <h2 className='font-bold text-2xl'>Gérer vos annonces</h2>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
             {listing&&listing.map((item,index)=>(
                  <div className='p-3 hover:border hover:border-primary rounded-lg cursor-pointer'>
@@ -95,10 +95,10 @@ function UserListing() {
                      <div className='flex gap-2 justify-between'>
                         <Link href={'/view-listing/'+item.id}  className="w-full">
                      <Button size="sm" variant="outline">
-                        View</Button>
+                        Voir</Button>
                         </Link>
                         <Link href={'/edit-listing/'+item.id}  className="w-full">
-                     <Button size="sm" className="w-full">Edit</Button>
+                     <Button size="sm" className="w-full">Modifier</Button>
                         </Link>
                    
                      <AlertDialog>
@@ -110,15 +110,15 @@ function UserListing() {
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
-                                                <AlertDialogTitle>Ready to Delete?</AlertDialogTitle>
+                                                <AlertDialogTitle>Prêt pour la suppression ?</AlertDialogTitle>
                                                 <AlertDialogDescription>
-                                                   Do you really want to Delete the listing?
+                                                Voulez-vous vraiment supprimer l'annonce ?
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
-                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogCancel>Annuler</AlertDialogCancel>
                                                 <AlertDialogAction onClick={()=>deleteListing(item.id)} >
-                                                    Continue
+                                                    Continuer
                                                     </AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>

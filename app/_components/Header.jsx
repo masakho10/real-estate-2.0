@@ -32,19 +32,19 @@ function Header() {
           <Link href={'/'} >
             <li className={`'hover:text-primary 
                  font-medium text-sm cursor-pointer'
-                 ${path == '/' && 'text-primary'}`}>For Sell</li>
+                 ${path == '/' && 'text-primary'}`}>A vendre</li>
           </Link>
           <Link href={'/rent'} >
             <li className={`'hover:text-primary 
                  font-medium text-sm cursor-pointer'
-                 ${path == '/rent' && 'text-primary'}`}>For Rent</li>
+                 ${path == '/rent' && 'text-primary'}`}>A louer</li>
           </Link>
-          <li className='hover:text-primary font-medium text-sm cursor-pointer'>Agent Finder</li>
+          <li className='hover:text-primary font-medium text-sm cursor-pointer'>Chercher agent</li>
         </ul>
       </div>
       <div className='flex gap-2 items-center'>
       <Link href={'/add-new-listing'}>
-        <Button className="flex gap-2"><Plus className='h-5 w-5' /> Post Your Ad</Button>
+        <Button className="flex gap-2"><Plus className='h-5 w-5' /> Poster votre annonce</Button>
         </Link>
         {isSignedIn ?
         
@@ -56,24 +56,24 @@ function Header() {
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
              <Link href={'/user'}>Profile</Link> 
               </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href={'/user#/my-listing'}>
-              My Listing
+              Ma liste
               </Link></DropdownMenuItem>
              
-            <DropdownMenuItem> <SignOutButton>Logout</SignOutButton> </DropdownMenuItem>
+            <DropdownMenuItem> <SignOutButton>Deconnexion</SignOutButton> </DropdownMenuItem>
            
           </DropdownMenuContent>
         </DropdownMenu>
 
           : 
           <Link href={'/sign-in'}>
-          <Button variant="outline">Login</Button>
+          <Button variant="outline">Connexion</Button>
           </Link>
         }
 

@@ -16,11 +16,11 @@ function Details({listingDetail}) {
                 <MapPin />
                 {listingDetail?.address}</h2>
         </div>
-        <Button className="flex gap-2"> <Share /> Share</Button>
+        <Button className="flex gap-2"> <Share /> Partager</Button>
     </div>
     <hr></hr>
      <div className='mt-4 flex flex-col gap-3'>
-        <h2 className=' font-bold text-2xl'>Key Features</h2>
+        <h2 className=' font-bold text-2xl'>Principales caractéristiques</h2>
         <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
             <h2 className='flex gap-2 items-center bg-purple-100 
     rounded-lg p-3 text-primary justify-center'>
@@ -30,7 +30,7 @@ function Details({listingDetail}) {
             <h2 className='flex gap-2 items-center justify-center bg-purple-100
      rounded-lg p-3 text-primary'>
                 <Drill />
-                Built In  {listingDetail?.builtIn}
+                Intégré  {listingDetail?.builtIn}
             </h2>
             <h2 className='flex gap-2 items-center justify-center bg-purple-100 rounded-lg p-3 text-primary'>
                 <LandPlot />
@@ -39,12 +39,12 @@ function Details({listingDetail}) {
             <h2 className='flex gap-2 items-center bg-purple-100 
     rounded-lg p-3 text-primary justify-center'>
                 <BedDouble />
-                {listingDetail.bedroom} Bed
+                {listingDetail.bedroom} Lit
             </h2>
             <h2 className='flex gap-2 items-center justify-center bg-purple-100
      rounded-lg p-3 text-primary'>
                 <Bath />
-                {listingDetail.bathroom} Bath
+                {listingDetail.bathroom} Salle de bain
             </h2>
             <h2 className='flex gap-2 items-center justify-center bg-purple-100 rounded-lg p-3 text-primary'>
                 <CarFront />
@@ -54,18 +54,18 @@ function Details({listingDetail}) {
      
     </div> 
     <div className='mt-4'>
-        <h2 className='font-bold text-2xl '>What's Special</h2>
+        <h2 className='font-bold text-2xl '>Ce qu'il y a de spécial</h2>
         <p className='text-gray-600 '>{listingDetail?.description}</p>
     </div>
     <div>
-        <h2 className='font-bold text-2xl '>Find On Map</h2>
+        <h2 className='font-bold text-2xl '>Trouver sur la carte</h2>
         <GoogleMapSection
         coordinates={listingDetail.coordinates}
         listing={[listingDetail]}
         />
     </div>
     <div>
-    <h2 className='font-bold text-2xl '>Contact Agent</h2>
+    <h2 className='font-bold text-2xl '>Contacter l'agent</h2>
 
        <AgentDetail listingDetail={listingDetail} />
     </div>

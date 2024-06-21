@@ -34,7 +34,7 @@ function MarkerListingItem({item,closeHandler}) {
                            
                         </div>
                        <Link href={'/view-listing/'+item.id} className='w-full'>
-                       <Button size="sm">View Detail</Button>
+                       <Button size="sm">Détails</Button>
                         </Link> 
                     </div>
                 </div>  

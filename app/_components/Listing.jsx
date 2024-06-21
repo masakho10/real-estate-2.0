@@ -26,7 +26,7 @@ function Listing({listing,handleSearchClick,searchedAddress,
         onClick={handleSearchClick}
         >
              <Search className='h-4 w-4'/> 
-        Search</Button>
+        Rechercher</Button>
         </div>
             <FilterSection
             setBathCount={setBathCount}
@@ -37,7 +37,7 @@ function Listing({listing,handleSearchClick,searchedAddress,
 
         {address&&<div className='px-3 my-5'>
            <h2 className='text-xl'>
-           Found  <span className='font-bold'>{listing?.length}</span> Result in <span className='text-primary font-bold'>{address?.label}</span></h2> 
+           Trouvé  <span className='font-bold'>{listing?.length}</span> résultat dans <span className='text-primary font-bold'>{address?.label}</span></h2> 
            
         </div>}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>

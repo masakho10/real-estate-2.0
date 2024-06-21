@@ -90,13 +90,13 @@ function FilterSection({setBathCount,setBedCount,setParkingCount,setHomeType}) {
         </SelectTrigger>
         <SelectContent>
         <SelectItem value="All">
-                All
+                Tout
             </SelectItem>
             <SelectItem value="Single Family House">
-               Single Family House
+            Maison individuelle
             </SelectItem>
             <SelectItem value="Town House">
-               Town House
+            Maison de ville
             </SelectItem>
             <SelectItem value="Condo">
                Condo

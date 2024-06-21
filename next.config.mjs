@@ -2,7 +2,7 @@
 const nextConfig = {
     images:{
         unoptimized:true,
-        domains:['oxmjhfafozlafqrhhawl.supabase.co','img.clerk.com']
+        domains:['qosrdeikaiplvuhyqjbp.supabase.co','img.clerk.com']
     }
 };
 
