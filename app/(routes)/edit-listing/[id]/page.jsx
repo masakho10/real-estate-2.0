@@ -1,162 +1,142 @@
-"use client"
+/* eslint-disable no-return-assign */
+/* eslint-disable react/prop-types */
+'use client'
 import React, { useEffect, useState } from 'react'
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Formik } from 'formik'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { supabase } from '@/utils/supabase/client'
 import { toast } from 'sonner'
 import { useUser } from '@clerk/nextjs'
 import FileUpload from '../_components/FileUpload'
 import { Loader } from 'lucide-react'
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 
-function EditListing({ params }) {
+function EditListing ({ params }) {
+  const { user } = useUser()
+  const router = useRouter()
+  const [listing, setListing] = useState([])
+  const [images, setImages] = useState([])
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    // console.log(params.split('/')[2]);
+    user && verifyUserRecord()
+  }, [user])
 
+  const verifyUserRecord = async () => {
+    const { data } = await supabase
+      .from('listing')
+      .select('*,listingImages(listing_id,url)')
+      .eq('createdBy', user?.primaryEmailAddress.emailAddress)
+      .eq('id', params.id)
+    if (data) {
+      console.log(data)
+      setListing(data[0])
+    }
+    if (data?.length <= 0) {
+      router.replace('/')
+    }
+  }
 
-    const { user } = useUser();
-    const router = useRouter();
-    const [listing, setListing] = useState([]);
-    const [images, setImages] = useState([]);
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-      
-        // console.log(params.split('/')[2]);
-        user && verifyUserRecord();
-    }, [user]);
+  const onSubmitHandler = async (formValue) => {
+    setLoading(true)
+    if (images?.length === 0) {
+      setLoading(false)
+      toast('Please add atleast 1 Image')
+      return
+    }
 
-    const verifyUserRecord = async () => {
+    const { data } = await supabase
+      .from('listing')
+      .update(formValue)
+      .eq('id', params.id)
+      .select()
+
+    if (data) {
+      console.log(data)
+      toast('Listing updated and Published')
+      setLoading(false)
+      publishBtnHandler()
+    }
+    for (const image of images) {
+      setLoading(true)
+      const file = image
+      const fileName = Date.now().toString()
+      const fileExt = fileName.split('.').pop()
+      const { error } = await supabase.storage
+        .from('listingImages')
+        .upload(`${fileName}`, file, {
+          contentType: `image/${fileExt}`,
+          upsert: false
+        })
+
+      if (error) {
+        setLoading(false)
+        toast('Error while uploading images')
+      } else {
+        const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL + fileName
         const { data, error } = await supabase
-            .from('listing')
-            .select('*,listingImages(listing_id,url)')
-            .eq('createdBy', user?.primaryEmailAddress.emailAddress)
-            .eq('id', params.id);
+          .from('listingImages')
+          .insert([
+            { url: imageUrl, listing_id: params?.id }
+          ])
+          .select()
+
         if (data) {
-            console.log(data)
-            setListing(data[0]);
+          setLoading(false)
         }
-        if (data?.length <= 0) {
-            router.replace('/')
+        if (error) {
+          setLoading(false)
         }
+      }
+      setLoading(false)
     }
+  }
 
-    const onSubmitHandler = async (formValue) => {
-        setLoading(true);
-        if(images?.length==0)
-        {
-            setLoading(false);
-            toast('Please add atleast 1 Image')
-            return ;
-        }
-        const { data, error } = await supabase
-            .from('listing')
-            .update(formValue)
-            .eq('id', params.id)
-            .select();
+  const publishBtnHandler = async () => {
+    setLoading(true)
+    const { data } = await supabase
+      .from('listing')
+      .update({ active: true })
+      .eq('id', params?.id)
+      .select()
 
-        if (data) {
-            console.log(data);
-            toast('Listing updated and Published');
-            setLoading(false)
-            publishBtnHandler();
-        }
-        for (const image of images) {
-            setLoading(true)
-            const file = image;
-            const fileName = Date.now().toString();
-            const fileExt = fileName.split('.').pop();
-            const { data, error } = await supabase.storage
-                .from('listingImages')
-                .upload(`${fileName}`, file, {
-                    contentType: `image/${fileExt}`,
-                    upsert: false
-                });
-
-            if (error) {
-                setLoading(false)
-                toast('Error while uploading images')
-            }
-
-            else {
-
-                const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL + fileName;
-                const { data, error } = await supabase
-                    .from('listingImages')
-                    .insert([
-                        { url: imageUrl, listing_id: params?.id }
-                    ])
-                    .select();
-
-                if (data) {
-                    setLoading(false);
-                    
-                }
-                if (error) {
-                    setLoading(false)
-                }
-
-            }
-            setLoading(false);
-        }
-
+    if (data) {
+      setLoading(false)
+      toast('Listing published!')
     }
+  }
 
-    const publishBtnHandler=async()=>{
-        setLoading(true)
-        const { data, error } = await supabase
-        .from('listing')
-        .update({ active: true })
-        .eq('id', params?.id)
-        .select()
-
-        if(data)
-        {
-            setLoading(false)
-            toast('Listing published!')
-        }
-        
-    }
-
-    return (
+  return (
         <div className='px-10 md:px-36 my-10'>
             <h2 className='font-bold text-2xl'>Enter some more details about your listing</h2>
 
             <Formik
                 initialValues={{
-                    type: '',
-                    propertyType: '',
-                    profileImage:user?.imageUrl,
-                    fullName:user?.fullName
+                  type: '',
+                  propertyType: '',
+                  profileImage: user?.imageUrl,
+                  fullName: user?.fullName
                 }}
                 onSubmit={(values) => {
-                    console.log(values);
-                    onSubmitHandler(values);
+                  console.log(values)
+                  onSubmitHandler(values)
                 }}
             >
                 {({
-                    values,
-                    handleChange,
-                    handleSubmit
+                  values,
+                  handleChange,
+                  handleSubmit
                 }) => (
                     <form onSubmit={handleSubmit}>
                         <div>
@@ -187,7 +167,7 @@ function EditListing({ params }) {
                                             defaultValue={listing?.propertyType}
                                         >
                                             <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder={listing?.propertyType ? listing?.propertyType : "Select Property Type"} />
+                                                <SelectValue placeholder={listing?.propertyType ? listing?.propertyType : 'Select Property Type'} />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="Single Family House">Single Family House</SelectItem>
@@ -207,12 +187,12 @@ function EditListing({ params }) {
                                         />
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'   >Bathroom</h2>
+                                        <h2 className='text-gray-500' >Bathroom</h2>
                                         <Input type="number" placeholder="Ex.2" name="bathroom"
                                             onChange={handleChange}
                                             defaultValue={listing?.bathroom} />
                                     </div>
-                                    <div className='flex gap-2 flex-col'   >
+                                    <div className='flex gap-2 flex-col' >
                                         <h2 className='text-gray-500'>Built In</h2>
                                         <Input type="number" placeholder="Ex.1900 Sq.ft"
                                             onChange={handleChange}
@@ -255,7 +235,6 @@ function EditListing({ params }) {
                                             defaultValue={listing?.hoa} placeholder="100" onChange={handleChange}
                                             name="hoa" />
                                     </div>
-
 
                                 </div>
                                 <div className='grid  grid-cols-1  gap-10'>
@@ -301,14 +280,13 @@ function EditListing({ params }) {
                                         </AlertDialogContent>
                                     </AlertDialog> */}
 
-
                                 </div>
                             </div>
                         </div>
                     </form>)}
             </Formik>
         </div>
-    )
+  )
 }
 
 export default EditListing
