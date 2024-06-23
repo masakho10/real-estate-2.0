@@ -6,12 +6,25 @@ import { Bath, BedDouble, CarFront, Drill, Home, LandPlot, MapPin, Share } from 
 import React from 'react'
 import AgentDetail from './AgentDetail'
 
-function Details({listingDetail}) {
-  return listingDetail&&(
+function Details ({ listingDetail }) {
+  const getPropertyTypeTranslated = (propertyType) => {
+    switch (propertyType) {
+      case 'Single Family House':
+        return 'Maison individuelle'
+      case 'Town House':
+        return 'Maison de ville'
+      case 'Condo':
+        return 'Copropriété'
+      default:
+        return 'Type de propriété inconnu' // or any default translation
+    }
+  }
+
+  return listingDetail && (
     <div className='my-6 flex gap-2 flex-col'>
     <div className='flex justify-between items-center'>
         <div>
-            <h2 className='font-bold text-3xl'>$ {listingDetail?.price}</h2>
+            <h2 className='font-bold text-3xl'> {listingDetail?.price} FCFA</h2>
             <h2 className='text-gray-500 text-lg flex gap-2'>
                 <MapPin />
                 {listingDetail?.address}</h2>
@@ -22,10 +35,10 @@ function Details({listingDetail}) {
      <div className='mt-4 flex flex-col gap-3'>
         <h2 className=' font-bold text-2xl'>Principales caractéristiques</h2>
         <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
-            <h2 className='flex gap-2 items-center bg-purple-100 
+            <h2 className='flex gap-2 items-center bg-purple-100
     rounded-lg p-3 text-primary justify-center'>
                 <Home />
-                {listingDetail?.propertyType}
+                {getPropertyTypeTranslated(listingDetail?.propertyType)}
             </h2>
             <h2 className='flex gap-2 items-center justify-center bg-purple-100
      rounded-lg p-3 text-primary'>
@@ -36,7 +49,7 @@ function Details({listingDetail}) {
                 <LandPlot />
                 {listingDetail?.area}
             </h2>
-            <h2 className='flex gap-2 items-center bg-purple-100 
+            <h2 className='flex gap-2 items-center bg-purple-100
     rounded-lg p-3 text-primary justify-center'>
                 <BedDouble />
                 {listingDetail.bedroom} Lit
@@ -51,8 +64,8 @@ function Details({listingDetail}) {
                 {listingDetail.parking} Parking
             </h2>
         </div>
-     
-    </div> 
+
+    </div>
     <div className='mt-4'>
         <h2 className='font-bold text-2xl '>Ce qu'il y a de spécial</h2>
         <p className='text-gray-600 '>{listingDetail?.description}</p>

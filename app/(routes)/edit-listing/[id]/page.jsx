@@ -167,12 +167,12 @@ function EditListing ({ params }) {
                                             defaultValue={listing?.propertyType}
                                         >
                                             <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder={listing?.propertyType ? listing?.propertyType : 'Select Property Type'} />
+                                                <SelectValue placeholder={listing?.propertyType ? listing?.propertyType : 'Choisissez le type de la propriété'} />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="Single Family House">Maison individuelle</SelectItem>
                                                 <SelectItem value="Town House">Maison de ville</SelectItem>
-                                                <SelectItem value="Condo">Condo</SelectItem>
+                                                <SelectItem value="Condo">Copropriété</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
@@ -187,22 +187,15 @@ function EditListing ({ params }) {
                                         />
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-<<<<<<< HEAD
-                                        <h2 className='text-gray-500'   >Salle de bains</h2>
-=======
-                                        <h2 className='text-gray-500' >Bathroom</h2>
->>>>>>> origin/main
+
+                                        <h2 className='text-gray-500' >Salle de bains</h2>
                                         <Input type="number" placeholder="Ex.2" name="bathroom"
                                             onChange={handleChange}
                                             defaultValue={listing?.bathroom} />
                                     </div>
-<<<<<<< HEAD
-                                    <div className='flex gap-2 flex-col'   >
-                                        <h2 className='text-gray-500'>Intégré</h2>
-=======
                                     <div className='flex gap-2 flex-col' >
-                                        <h2 className='text-gray-500'>Built In</h2>
->>>>>>> origin/main
+                                        <h2 className='text-gray-500'>Intégré</h2>
+
                                         <Input type="number" placeholder="Ex.1900 Sq.ft"
                                             onChange={handleChange}
                                             defaultValue={listing?.builtIn} name="builtIn" />
@@ -233,13 +226,13 @@ function EditListing ({ params }) {
                                 </div>
                                 <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>Prix d'achat (XOF)</h2>
+                                        <h2 className='text-gray-500'>Prix d'achat (FCFA)</h2>
                                         <Input type="number" placeholder="400000" name="price"
                                             onChange={handleChange}
                                             defaultValue={listing?.price} />
                                     </div>
                                     <div className='flex gap-2 flex-col'>
-                                        <h2 className='text-gray-500'>Montant (XOF/mois)</h2>
+                                        <h2 className='text-gray-500'>Montant (FCFA/mois)</h2>
                                         <Input type="number"
                                             defaultValue={listing?.hoa} placeholder="100" onChange={handleChange}
                                             name="hoa" />

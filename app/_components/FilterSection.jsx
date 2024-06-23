@@ -14,7 +14,7 @@ function FilterSection({setBathCount,setBedCount,setParkingCount,setHomeType}) {
     md:flex gap-2'>
         <Select onValueChange={setBedCount}>
         <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Bed" />
+            <SelectValue placeholder="Lit" />
         </SelectTrigger>
         <SelectContent>
             <SelectItem value="2">
@@ -40,7 +40,7 @@ function FilterSection({setBathCount,setBedCount,setParkingCount,setHomeType}) {
 
         <Select  onValueChange={setBathCount}>
         <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Bath" />
+            <SelectValue placeholder="Bain" />
         </SelectTrigger>
         <SelectContent>
             <SelectItem value="2">
@@ -86,7 +86,7 @@ function FilterSection({setBathCount,setBedCount,setParkingCount,setHomeType}) {
         <Select  onValueChange={(value)=>value=='All'?
         setHomeType(null): setHomeType(value)}>
         <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Home Type" />
+            <SelectValue placeholder="Type de maison" />
         </SelectTrigger>
         <SelectContent>
         <SelectItem value="All">
@@ -98,8 +98,8 @@ function FilterSection({setBathCount,setBedCount,setParkingCount,setHomeType}) {
             <SelectItem value="Town House">
             Maison de ville
             </SelectItem>
-            <SelectItem value="Condo">
-               Condo
+            <SelectItem value="Copropriété">
+               Copropriété
             </SelectItem>
           
           
